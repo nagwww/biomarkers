@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AmCharts USA Map Example</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+   <!-- Add Bootstrap JS scripts -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+  <!-- AmCharts core library -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+
+  <!-- AmCharts maps module -->
+  <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+
+  <!-- AmCharts geodata for the USA map -->
+  <script src="https://cdn.amcharts.com/lib/4/geodata/usaLow.js"></script>
+
+  <style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chartdiv"></div>
+
+  <script>
+
+    // Create modal element
+    var modalEl = document.createElement("div");
+    modalEl.classList.add("modal");
+    modalEl.innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Append modal to body
+    document.body.appendChild(modalEl);
+
+    // Get modal elements
+    var modalTitleEl = modalEl.querySelector(".modal-title");
+    var modalBodyEl = $(".modal-body");
+
+
+
+
+    // Create map instance
+    var chart = am4core.create("chartdiv", am4maps.MapChart);
+
+    // Set map definition
+    chart.geodata = am4geodata_usaLow;
+
+    // Set projection
+    chart.projection = new am4maps.projections.AlbersUsa();
+
+    // Create map polygon series
+    var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+    // Make map load polygon (like country names) data from GeoJSON
+    polygonSeries.useGeodata = true;
+
+    // Configure series
+    var polygonTemplate = polygonSeries.mapPolygons.template;
+    polygonTemplate.tooltipText = "{name}";
+    polygonTemplate.fill = am4core.color("#FFF");
+    polygonTemplate.stroke = am4core.color("#000");
+    polygonTemplate.strokeOpacity = 0.2;
+
+    // Create hover state and set alternative fill color
+    var hs = polygonTemplate.states.create("hover");
+    hs.properties.fill = am4core.color("#367B25");
+
+    polygonSeries.data = [{
+      "id": "US-AZ",
+      "name": "New York",
+      "value": 100,
+      "fill": am4core.color("#ed2939")
+    }, {
+      "id": "US-NM",
+      "name": "South Dakota",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-CA",
+      "name": "California",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-NV",
+      "name": "Nevada",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-WA",
+      "name": "Washington",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-TX",
+      "name": "Texas",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-OK",
+      "name": "Oklahoma",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-CO",
+      "name": "Colorado",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-MN",
+      "name": "Minnesota",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-AR",
+      "name": "Arkansas",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-LA",
+      "name": "Louisiana",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-MS",
+      "name": "Mississippi",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-IL",
+      "name": "Illinois",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-KY",
+      "name": "Kentucky",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-CT",
+      "name": "Connecticut",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-FL",
+      "name": "Florida",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-GA",
+      "name": "Georgia",
+      "value": 50,
+      "fill": am4core.color("#fff700")
+    },
+    {
+      "id": "US-MD",
+      "name": "Maryland",
+      "value": 50,
+      "fill": am4core.color("#fff700")
+    },
+    {
+      "id": "US-OH",
+      "name": "Ohio",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-PA",
+      "name": "Pennsylvania",
+      "value": 50,
+      "fill": am4core.color("#e8f3ff")
+    },
+    {
+      "id": "US-NY",
+      "name": "New York",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-RI",
+      "name": "Rhode Island",
+      "value": 50,
+      "fill": am4core.color("#ed2939")
+    },
+    {
+      "id": "US-MA",
+      "name": "Massachusetts",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    },
+    {
+      "id": "US-ME",
+      "name": "Maine",
+      "value": 50,
+      "fill": am4core.color("#3f00ff")
+    }
+  ];
+
+polygonTemplate.propertyFields.fill = "fill";
+
+    // Create a popup for showing details
+    var popup = new am4core.Popup();
+    //popup.padding(10, 10, 10, 10);
+    popup.background = new am4core.Rectangle();
+    popup.background.fill = am4core.color("#FFF");
+    popup.background.stroke = am4core.color("#000");
+    popup.background.strokeOpacity = 0.2;
+
+    // Show details on click of state
+    polygonTemplate.events.on("hit", function(ev) {
+        debugger;
+        var state = ev.target.dataItem.dataContext;
+        
+        //alert(state.name);
+        // Update modal content
+        modalTitleEl.textContent = state.name;
+        modalBodyEl.html("Country: " + state.CNTRY + "</br>" + "TYPE: " + state.TYPE);
+
+        // Show modal
+        var myModal = new bootstrap.Modal(modalEl);
+        myModal.show();
+    });
+
+    chart.seriesContainer.events.on("hit", function(ev) {
+      popup.close();
+    });
+
+    
+
+
+    
+// create a legend
+var legend = new am4maps.Legend();
+legend.parent = chart.chartContainer;
+//legend.background.fill = am4core.color("#000000");
+legend.background.fillOpacity = 0.7;
+legend.width = 150;
+legend.height = 200;
+legend.align = "right";
+legend.valign = "bottom";
+legend.padding(10, 10, 10, 10);
+legend.itemContainers.template.clickable = false;
+
+var legendTitle = legend.createChild(am4core.Label);
+legendTitle.text = "Legislation Status";
+legendTitle.fontSize = 16;
+legendTitle.marginBottom = 10;
+legendTitle.align = "center";
+legendTitle.paddingBottom = 15;
+legendTitle.fontWeight = "bold";
+
+// create a legend item for each color
+var createLegendItem = function(color, name) {
+  var item = legend.createChild(am4core.Container);
+  item.width = am4core.percent(100);
+  item.height = 30;
+  item.layout = "horizontal";
+  
+  var marker = item.createChild(am4core.Rectangle);
+  marker.width = 20;
+  marker.height = 20;
+  marker.marginRight = 10;
+  marker.stroke = am4core.color("#000");
+  marker.strokeOpacity = 0.6;
+  marker.fill = color;
+  
+  var label = item.createChild(am4core.Label);
+  label.text = name;
+  label.fontSize = 12;
+  label.align = "left";
+  
+  return item;
+};
+
+createLegendItem("#ed2939", "Red");
+createLegendItem("#3f00ff", "Blue");
+createLegendItem("#fff700", "Yellow");
+createLegendItem("#e8f3ff", "Cyan");
+createLegendItem("#fff", "white");
+
+    
+    
+  </script>
+</body>
+</html>

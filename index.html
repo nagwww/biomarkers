@@ -84,9 +84,12 @@
     polygonTemplate.stroke = am4core.color("#000");
     polygonTemplate.strokeOpacity = 0.2;
 
+    // Set cursor over style to "pointer" (default is "hand")
+    polygonSeries.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+
     // Create hover state and set alternative fill color
-    var hs = polygonTemplate.states.create("hover");
-    hs.properties.fill = am4core.color("#367B25");
+    // var hs = polygonTemplate.states.create("hover");
+    // hs.properties.fill = am4core.color("#367B25");
 
     polygonSeries.data = [{
       "id": "US-AZ",
@@ -277,6 +280,9 @@ legend.align = "right";
 legend.valign = "bottom";
 legend.padding(10, 10, 10, 10);
 legend.itemContainers.template.clickable = false;
+
+// Set marginRight to move the legend closer to the map
+legend.marginRight = 150;
 
 var legendTitle = legend.createChild(am4core.Label);
 legendTitle.text = "Legislation Status";

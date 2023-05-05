@@ -92,10 +92,10 @@
     // hs.properties.fill = am4core.color("#367B25");
 
     polygonSeries.data = [{
-      "id": "US-AZ",
+      "id": "US-NY",
       "name": "New York",
       "value": 100,
-      "fill": am4core.color("#ed2939")
+      "fill": am4core.color("#3f00ff")
     }, {
       "id": "US-NM",
       "name": "South Dakota",
@@ -211,10 +211,10 @@
       "fill": am4core.color("#e8f3ff")
     },
     {
-      "id": "US-NY",
-      "name": "New York",
+      "id": "US-AZ",
+      "name": "Arizona",
       "value": 50,
-      "fill": am4core.color("#3f00ff")
+      "fill": am4core.color("#ed2939")
     },
     {
       "id": "US-RI",
@@ -236,7 +236,7 @@
     }
   ];
 
-polygonTemplate.propertyFields.fill = "fill";
+    polygonTemplate.propertyFields.fill = "fill";
 
     // Create a popup for showing details
     var popup = new am4core.Popup();
@@ -254,7 +254,46 @@ polygonTemplate.propertyFields.fill = "fill";
         //alert(state.name);
         // Update modal content
         modalTitleEl.textContent = state.name;
-        modalBodyEl.html("Country: " + state.CNTRY + "</br>" + "TYPE: " + state.TYPE);
+        var MoreInfo = '';
+        if(state.id == 'US-CA') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-california">https://www.fightcancer.org/expand-access-biomarker-testing-california</a>';
+        } else if(state.id == 'US-NY') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-texas-0">https://www.fightcancer.org/expand-access-biomarker-testing-texas-0</a>';
+        }
+        else if(state.id == 'US-CO') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-colorado">https://www.fightcancer.org/expand-access-biomarker-testing-colorado</a>';
+        }
+        else if(state.id == 'US-FL') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-florida">https://www.fightcancer.org/expand-access-biomarker-testing-florida</a>';
+        }
+        else if(state.id == 'US-MA') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-massachusetts">https://www.fightcancer.org/expand-access-biomarker-testing-massachusetts</a>';
+        }
+        else if(state.id == 'US-MD') {
+          MoreInfo = '<a href="https://www.fightcancer.org/states/maryland">https://www.fightcancer.org/states/maryland</a>';
+        }
+        else if(state.id == 'US-ME') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-maine">https://www.fightcancer.org/expand-access-biomarker-testing-maine</a>';
+        }
+        else if(state.id == 'US-MN') {
+          MoreInfo = '<a href="https://www.fightcancer.org/states/minnesota">https://www.fightcancer.org/states/minnesota</a>';
+        }
+        else if(state.id == 'US-NV') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-nevada">https://www.fightcancer.org/expand-access-biomarker-testing-nevada</a>';
+        }
+        else if(state.id == 'US-OH') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-ohio">https://www.fightcancer.org/expand-access-biomarker-testing-ohio</a>';
+        }
+        else if(state.id == 'US-OK') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-oklahoma">https://www.fightcancer.org/expand-access-biomarker-testing-oklahoma</a>';
+        }
+        else if(state.id == 'US-PA') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-pennsylvania">https://www.fightcancer.org/expand-access-biomarker-testing-pennsylvania</a>';
+        }
+        else if(state.id == 'US-WA') {
+          MoreInfo = '<a href="https://www.fightcancer.org/expand-access-biomarker-testing-washingtonhomepage"></a>';
+        }
+        modalBodyEl.html("Country: " + state.CNTRY + "</br>" + "More Info: " + MoreInfo);
 
         // Show modal
         var myModal = new bootstrap.Modal(modalEl);
